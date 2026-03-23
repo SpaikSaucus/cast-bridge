@@ -20,4 +20,9 @@
     <string name="send_to_cast">SEND TO CAST</string>
     <string name="status_browser_hint">Navigate to the video and press play. CastBridge will detect it.</string>
     <string name="videos_detected_count">%d videos detected</string>
+    <string name="notif_channel_name">Casting</string>
+    <string name="notif_casting_title">CastBridge</string>
+    <string name="notif_casting_text">Casting video to Chromecast</string>
+    <string name="notif_action_stop">Stop</string>
+    <string name="status_retrying_proxy">Retrying with proxy\u2026</string>
 </resources>

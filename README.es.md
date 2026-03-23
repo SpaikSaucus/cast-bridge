@@ -12,6 +12,19 @@ Funciona con servidores que sirven video sin DRM: HLS (.m3u8), DASH (.mpd), MP4,
 
 No funciona con contenido protegido con DRM (Netflix, Disney+, Amazon Prime) ni con YouTube (usar su app oficial). Si al reproducir ves un error como "contenido protegido" o "error 232403", ese servidor usa DRM — proba con otro servidor disponible en la pagina.
 
+## Cómo funciona
+
+CastBridge primero envía la URL del video directamente al Chromecast. Si el servidor rechaza la solicitud (muchos sitios de streaming usan URLs con tokens de sesión que requieren headers o cookies específicos), reintenta automáticamente a través de un proxy local en tu celular que retransmite el video con los headers originales del navegador:
+
+```
+Directo:  Chromecast ← CDN
+Proxy:    Chromecast ← Tu celular (proxy) ← CDN
+```
+
+**Reproducción en segundo plano:** Cuando se usa el modo proxy, la app ejecuta un servicio en primer plano (con una notificación persistente) para mantener la conexión activa mientras la pantalla está apagada — el mismo patrón que usan YouTube y otras apps de casting. El servicio se detiene automáticamente cuando termina la reproducción.
+
+**Batería:** En modo directo, el celular solo mantiene el canal de control Cast (impacto mínimo). En modo proxy, el celular mantiene Wi-Fi y CPU activos para retransmitir los segmentos de video. El Chromecast se encarga de toda la decodificación — el celular solo reenvía datos. El impacto en batería es comparable al de una app de música reproduciendo en segundo plano.
+
 ## Compilar
 
 Requisito: [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y corriendo.
@@ -62,6 +75,7 @@ app/src/main/java/.../
   MainActivity.java              # UI y navegador WebView
   VideoDetector.java             # Deteccion de video e inyeccion JS en iframes
   CastManager.java               # Sesion Cast y controles de reproduccion
+  ProxyService.java              # Servicio en primer plano para proxy en segundo plano
   LocalStreamProxy.java          # Proxy HTTP que reenvia video al Chromecast
   AdBlocker.java                 # Bloqueo de ads y trackers (130+ dominios)
   UrlUtils.java                  # Utilidades de URL

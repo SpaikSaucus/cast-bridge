@@ -12,6 +12,9 @@
 -keep class androidx.webkit.WebViewCompat { *; }
 -keep class androidx.webkit.WebViewFeature { *; }
 
+# ProxyService - foreground service referenced in AndroidManifest.xml
+-keep class com.castbridge.app.ProxyService { *; }
+
 # Google Cast Framework
 -keep class com.google.android.gms.cast.** { *; }
 -keep class com.google.android.gms.cast.framework.** { *; }

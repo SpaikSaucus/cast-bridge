@@ -2,6 +2,8 @@ package com.castbridge.app;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
+        requestNotificationPermission();
         setupBrowserWebView();
         setupListeners();
         handleIntent(getIntent());
@@ -99,6 +102,15 @@ public class MainActivity extends AppCompatActivity
         playPauseButton = findViewById(R.id.playPauseButton);
         stopButton = findViewById(R.id.stopButton);
         clearUrlButton = findViewById(R.id.clearUrlButton);
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                   != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                    new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1001);
+        }
     }
 
     // --- WebView Setup ---
@@ -554,6 +566,11 @@ public class MainActivity extends AppCompatActivity
                 showErrorDialog(simpleMessage, diagnostics);
             }
         });
+    }
+
+    @Override
+    public void onCastRetryingWithProxy() {
+        runOnUiThread(() -> statusText.setText(R.string.status_retrying_proxy));
     }
 
     @Override

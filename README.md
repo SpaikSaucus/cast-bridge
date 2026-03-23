@@ -12,6 +12,19 @@ Works with servers that serve video without DRM: HLS (.m3u8), DASH (.mpd), MP4, 
 
 Does not work with DRM-protected content (Netflix, Disney+, Amazon Prime) or YouTube (use its official app). If you see an error like "protected content" or "error 232403" during playback, that server uses DRM — try another server available on the page.
 
+## How it works
+
+CastBridge first sends the detected video URL directly to the Chromecast. If the server rejects the request (many streaming sites use session-bound URLs that require specific headers or cookies), it automatically retries through a local proxy on your phone that relays the video with the original browser headers:
+
+```
+Direct:  Chromecast ← CDN
+Proxy:   Chromecast ← Your phone (proxy) ← CDN
+```
+
+**Background playback:** When using proxy mode, the app runs a foreground service (with a persistent notification) to keep the connection alive while your screen is off — the same pattern used by YouTube and other casting apps. The service stops automatically when playback ends.
+
+**Battery:** In direct mode, the phone only maintains a lightweight Cast control channel (minimal battery impact). In proxy mode, the phone keeps Wi-Fi and CPU active to relay video segments. The Chromecast handles all video decoding — the phone only forwards data. Battery impact is comparable to a music streaming app playing in the background.
+
 ## Build
 
 Requirement: [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
@@ -62,6 +75,7 @@ app/src/main/java/.../
   MainActivity.java              # UI and WebView browser
   VideoDetector.java             # Video detection and JS injection into iframes
   CastManager.java               # Cast session and playback controls
+  ProxyService.java              # Foreground service for background proxy
   LocalStreamProxy.java          # HTTP proxy that relays video to Chromecast
   AdBlocker.java                 # Ad and tracker blocking (130+ domains)
   UrlUtils.java                  # URL utilities
