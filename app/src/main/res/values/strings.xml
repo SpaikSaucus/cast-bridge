@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CastBridge</string>
+    <string name="cast_button_text">CAST</string>
+    <string name="hint_url">Enter or share a video URL</string>
+    <string name="status_ready">Share a video URL from any browser, or enter one above.</string>
+    <string name="status_searching">Searching for video in page\u2026</string>
+    <string name="status_connected">Connected to %s</string>
+    <string name="status_casting">Casting: %s</string>
+    <string name="status_disconnected">Disconnected.</string>
+    <string name="status_no_video">No video found. Try sharing a direct video URL.</string>
+    <string name="status_cast_failed">Cast failed. The URL may not be a playable video.</string>
+    <string name="status_connection_failed">Connection failed. Try again.</string>
+    <string name="status_enter_url">Enter a URL first.</string>
+    <string name="status_select_device">Select a Chromecast device first (tap the Cast icon).</string>
+    <string name="status_no_play_services">Google Play Services is required. Please install or update it.</string>
+    <string name="video_found">Video found! Select one to cast:</string>
+    <string name="select_video">Select video</string>
+    <string name="video_detected">Video detected!</string>
+    <string name="send_to_cast">SEND TO CAST</string>
+    <string name="status_browser_hint">Navigate to the video and press play. CastBridge will detect it.</string>
+    <string name="videos_detected_count">%d videos detected</string>
+</resources>

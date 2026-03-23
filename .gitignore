@@ -1,0 +1,24 @@
+# Environment variables (contains signing passwords)
+.env
+
+# Build outputs
+app-output/
+*.apk
+
+# Gradle
+.gradle/
+build/
+app/build/
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# Keystore (generated during build)
+*.keystore
+*.jks
+
+# OS files
+.DS_Store
+Thumbs.db

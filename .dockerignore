@@ -1,0 +1,14 @@
+app-output/
+.gradle/
+app/build/
+build/
+*.apk
+.idea/
+*.iml
+local.properties
+.claude/
+.git/
+.env
+.env.example
+.gitignore
+*.md

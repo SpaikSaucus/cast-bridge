@@ -1,0 +1,19 @@
+# Ensure consistent line endings across platforms
+* text=auto
+
+# Shell scripts must have LF endings (even on Windows)
+*.sh text eol=lf
+
+# Windows batch files must have CRLF endings
+*.bat text eol=crlf
+
+# Java source files
+*.java text
+*.xml text
+*.properties text
+*.gradle text
+
+# Binary files
+*.png binary
+*.jar binary
+*.apk binary
